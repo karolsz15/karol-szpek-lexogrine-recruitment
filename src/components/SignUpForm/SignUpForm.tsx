@@ -139,15 +139,83 @@ const BottomText = styled.p`
   }
 `;
 
+const ErrorMessage = styled.span`
+  color: #E93A7D;
+  font-size: 0.875rem;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+  align-self: flex-start;
+`;
+
 export const SignUpForm = () => {
-  const { login } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [agreed, setAgreed] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const { login } = useAuth();
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+      setEmailError('Email is required');
+      return false;
+    }
+    if (!emailRegex.test(email)) {
+      setEmailError('Please enter a valid email address');
+      return false;
+    }
+    setEmailError('');
+    return true;
+  };
+
+  const validatePassword = (password: string) => {
+    if (!password) {
+      setPasswordError('Password is required');
+      return false;
+    }
+    if (password.length < 6) {
+      setPasswordError('Password must be at least 6 characters long');
+      return false;
+    }
+    setPasswordError('');
+    return true;
+  };
+
+  const handleSubmit = () => {
+    const isEmailValid = validateEmail(email);
+    const isPasswordValid = validatePassword(password);
+    
+    if (isEmailValid && isPasswordValid && agreed) {
+      login();
+    }
+  };
 
   return (
     <FormContainer>
       <Title>Sign Up Now</Title>
-      <Input type="email" placeholder="Your email" />
-      <Input type="password" placeholder="Your password" />
+      
+      <Input 
+        type="email" 
+        placeholder="Your email" 
+        value={email}
+        onChange={(e) => {
+          setEmail(e.target.value);
+          if (emailError) validateEmail(e.target.value);
+        }}
+      />
+      {emailError && <ErrorMessage>{emailError}</ErrorMessage>}
+
+      <Input 
+        type="password" 
+        placeholder="Your password" 
+        value={password}
+        onChange={(e) => {
+          setPassword(e.target.value);
+          if (passwordError) validatePassword(e.target.value);
+        }}
+      />
+      {passwordError && <ErrorMessage>{passwordError}</ErrorMessage>}
       
       <CheckboxContainer>
         <Checkbox 
@@ -159,8 +227,8 @@ export const SignUpForm = () => {
       </CheckboxContainer>
 
       <SignInButton
-        disabled={!agreed}
-        onClick={login}
+        disabled={!agreed || !email || !password}
+        onClick={handleSubmit}
       >
         Sign In
       </SignInButton>

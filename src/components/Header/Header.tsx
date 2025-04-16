@@ -13,9 +13,15 @@ const HeaderWrapper = styled.header`
   top: 0;
   left: 0;
   z-index: 10;
+  max-width: 90rem;
+  margin: 0 auto;
 
   @media (max-width: 64rem) {
-    padding: 2rem 3rem;
+    padding: 1.5rem 2rem;
+  }
+
+  @media (max-width: 40rem) {
+    padding: 1rem;
   }
 
   @media (max-width: 40rem) and (orientation: landscape) {
@@ -35,9 +41,11 @@ const Logo = styled.div`
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -0.03em;
+  margin-left: -0.5rem;
 
   @media (max-width: 40rem) {
-    font-size: 1.125rem;
+    font-size: 1.25rem;
+    margin-left: -0.25rem;
   }
 `;
 
