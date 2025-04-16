@@ -1,6 +1,7 @@
 import { useAuth } from '../../context/AuthContext';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import { motion, AnimatePresence } from 'framer-motion';
 import './SignUpForm.scss';
 
 export const SignUpForm = () => {
@@ -133,11 +134,78 @@ export const SignUpForm = () => {
     }
   };
 
+  const formVariants = {
+    hidden: { opacity: 0, x: 50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1
+      }
+    },
+    exit: {
+      opacity: 0,
+      x: -50,
+      transition: {
+        duration: 0.4
+      }
+    }
+  };
+
+  const inputVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3
+      }
+    }
+  };
+
+  const buttonVariants = {
+    hover: {
+      scale: 1.02,
+      transition: {
+        duration: 0.2
+      }
+    },
+    tap: {
+      scale: 0.98
+    }
+  };
+
   return (
-    <div className="signup">
-      <h2 className="signup__title">Sign Up Now</h2>
+    <motion.div 
+      className="signup"
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      variants={formVariants}
+    >
+      <motion.h2 
+        className="signup__title"
+        variants={inputVariants}
+      >
+        Sign Up Now
+      </motion.h2>
       
-      <input 
+      <AnimatePresence mode="wait">
+        {emailError && (
+          <motion.span 
+            className="signup__error"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {emailError}
+          </motion.span>
+        )}
+      </AnimatePresence>
+
+      <motion.input 
         className="signup__input"
         type="email" 
         placeholder="Your email" 
@@ -147,10 +215,25 @@ export const SignUpForm = () => {
           if (emailError) validateEmail(e.target.value);
         }}
         disabled={isLoading}
+        variants={inputVariants}
+        whileFocus={{ scale: 1.02 }}
       />
-      {emailError && <span className="signup__error">{emailError}</span>}
 
-      <input 
+      <AnimatePresence mode="wait">
+        {passwordError && (
+          <motion.span 
+            className="signup__error"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {passwordError}
+          </motion.span>
+        )}
+      </AnimatePresence>
+
+      <motion.input 
         className="signup__input"
         type="password" 
         placeholder="Your password" 
@@ -160,41 +243,71 @@ export const SignUpForm = () => {
           if (passwordError) validatePassword(e.target.value);
         }}
         disabled={isLoading}
+        variants={inputVariants}
+        whileFocus={{ scale: 1.02 }}
       />
-      {passwordError && <span className="signup__error">{passwordError}</span>}
       
-      <div className="signup__checkbox-container">
-        <input 
+      <motion.div 
+        className="signup__checkbox-container"
+        variants={inputVariants}
+      >
+        <motion.input 
           className="signup__checkbox"
           type="checkbox" 
           checked={agreed}
           onChange={(e) => setAgreed(e.target.checked)}
           disabled={isLoading}
+          whileHover={{ scale: 1.1 }}
         />
-        <label className="signup__checkbox-label">I agree to the Terms of Service.</label>
-      </div>
+        <motion.label 
+          className="signup__checkbox-label"
+          whileHover={{ color: 'rgba(21, 20, 57, 0.8)' }}
+        >
+          I agree to the Terms of Service.
+        </motion.label>
+      </motion.div>
 
-      <button
+      <motion.button
         className="signup__button signup__button--signin"
         disabled={!agreed || !email || !password || isLoading || countdown > 0}
         onClick={handleSubmit}
+        variants={buttonVariants}
+        whileHover="hover"
+        whileTap="tap"
       >
         {isLoading ? 'Signing up...' : 
          countdown > 0 ? `Wait ${countdown}s` : 'Sign In'}
-      </button>
+      </motion.button>
 
-      <div className="signup__divider">or</div>
+      <motion.div 
+        className="signup__divider"
+        variants={inputVariants}
+      >
+        or
+      </motion.div>
 
-      <button 
+      <motion.button 
         className="signup__button signup__button--twitter"
         disabled={isLoading}
+        variants={buttonVariants}
+        whileHover="hover"
+        whileTap="tap"
       >
         Login via Twitter
-      </button>
+      </motion.button>
 
-      <p className="signup__signin-prompt">
-        Do you have an Account? <a className="signup__signin-link">Sign In</a>
-      </p>
-    </div>
+      <motion.p 
+        className="signup__signin-prompt"
+        variants={inputVariants}
+      >
+        Do you have an Account? {' '}
+        <motion.a 
+          className="signup__signin-link"
+          whileHover={{ scale: 1.05 }}
+        >
+          Sign In
+        </motion.a>
+      </motion.p>
+    </motion.div>
   );
 }; 
