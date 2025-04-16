@@ -5,12 +5,18 @@ const Container = styled.div`
   text-align: center;
   color: #1E0E62;
   background: white;
-  height: 100vh;  // Change from min-height
-  width: 100%;    // Change from min-width
+  height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow: hidden;  // Hide both scrollbars
+  overflow: hidden;
+
+  @media (max-width: 40rem) {
+    padding: 2rem 1rem;
+    height: auto;
+    min-height: 100vh;
+  }
 `;
 
 const CardsContainer = styled.div`
@@ -20,11 +26,12 @@ const CardsContainer = styled.div`
   max-width: 77.5rem;
   margin: 0 auto;
   padding: 0 2rem;
-  height: fit-content;  // Add this
+  height: fit-content;
 
   @media (max-width: 64rem) {
     grid-template-columns: 1fr;
     max-width: 25rem;
+    padding: 0;
   }
 `;
 
@@ -33,24 +40,38 @@ const Title = styled.h1`
   font-weight: 700;
   margin-bottom: 1rem;
   color: #2F1893;
+
+  @media (max-width: 40rem) {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
 `;
 
 const Subtitle = styled.p`
   font-size: 1.125rem;
   color: rgba(21, 20, 57, 0.4);
   margin-bottom: 4rem;
+
+  @media (max-width: 40rem) {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
 `;
 
 const Card = styled.div<{ isHighlighted?: boolean }>`
   background: ${props => props.isHighlighted ? '#2F1893' : 'white'};
   color: ${props => props.isHighlighted ? 'white' : '#1E0E62'};
-  padding: 3rem 2rem;
+  padding: 2rem;
   border-radius: 0.625rem;
   box-shadow: 0 1.25rem 3.75rem rgba(49, 69, 244, 0.1);
   border: ${props => !props.isHighlighted && '2px solid #EBEAED'};
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 40rem) {
+    padding: 1.5rem;
+  }
 `;
 
 const PlanName = styled.h3`
@@ -75,6 +96,10 @@ const PriceAmount = styled.span`
   font-size: 3.5rem;
   font-weight: 700;
   line-height: 1;
+
+  @media (max-width: 40rem) {
+    font-size: 2.5rem;
+  }
 `;
 
 const PriceSuffix = styled.span`
@@ -92,7 +117,11 @@ const Description = styled.p`
   font-size: 1rem;
   opacity: 0.7;
   margin-bottom: 2.5rem;
-  max-width: 15rem;
+  max-width: 80%;  // Limit width for better readability
+
+  @media (max-width: 40rem) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const FeatureList = styled.ul`

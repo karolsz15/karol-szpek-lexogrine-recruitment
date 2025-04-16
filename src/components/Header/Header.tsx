@@ -3,8 +3,9 @@ import { useAuth } from '../../context/AuthContext';
 
 const HeaderWrapper = styled.header`
   width: 100%;
-  padding: 2.2rem 7.5rem;  // Keeping original padding
+  padding: 2.2rem 7.5rem;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   background: transparent;
@@ -12,6 +13,21 @@ const HeaderWrapper = styled.header`
   top: 0;
   left: 0;
   z-index: 10;
+
+  @media (max-width: 64rem) {
+    padding: 2rem 3rem;
+  }
+
+  @media (max-width: 40rem) and (orientation: landscape) {
+    padding: 1rem 2rem;
+  }
+
+  @media (max-width: 40rem) and (orientation: portrait) {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 `;
 
 const Logo = styled.div`
@@ -19,12 +35,27 @@ const Logo = styled.div`
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -0.03em;
+
+  @media (max-width: 40rem) {
+    font-size: 1.125rem;
+  }
 `;
 
 const Navigation = styled.nav`
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 2.5rem;
+
+  @media (max-width: 40rem) and (orientation: landscape) {
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 40rem) and (orientation: portrait) {
+    gap: 1rem;
+    width: 100%;
+    justify-content: space-between;
+  }
 `;
 
 const NavLink = styled.a<{ isActive?: boolean }>`
@@ -33,6 +64,10 @@ const NavLink = styled.a<{ isActive?: boolean }>`
   font-size: 1rem;
   font-weight: 500;
   transition: color 0.2s;
+
+  @media (max-width: 40rem) {
+    font-size: 0.875rem;
+  }
 
   &:hover {
     color: white;
@@ -53,6 +88,11 @@ const PurchaseButton = styled.button`
   font-weight: 500;
   cursor: pointer;
   transition: background 0.2s;
+
+  @media (max-width: 40rem) {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
 
   &:hover {
     background: #d62e6f;
