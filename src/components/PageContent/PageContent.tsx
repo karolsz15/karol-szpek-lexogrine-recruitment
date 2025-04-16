@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 import { Text } from '../Text/Text';
 import { SignUpForm } from '../SignUpForm/SignUpForm';
+import { PricingTable } from '../PricingTable/PricingTable';
+import { useAuth } from '../../context/AuthContext';
 
-const Container = styled.div`
+const LoginContainer = styled.div`
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -18,29 +20,17 @@ const Container = styled.div`
   }
 `;
 
-const ContentWrapper = styled.div`
-  max-width: 77.5rem; // 1240px
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 7.5rem;
-  padding: 0;
-
-  @media (max-width: 64rem) {
-    flex-direction: column;
-    padding: 7.5rem 1.25rem 2.5rem;
-    text-align: center;
-  }
-`;
-
 export const PageContent = () => {
+  const { isLoggedIn } = useAuth();
+
+  if (isLoggedIn) {
+    return <PricingTable />;
+  }
+
   return (
-    <Container>
-      <ContentWrapper>
-        <Text />
-        <SignUpForm />
-      </ContentWrapper>
-    </Container>
+    <LoginContainer>
+      <Text />
+      <SignUpForm />
+    </LoginContainer>
   );
 }; 

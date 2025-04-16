@@ -19,5 +19,13 @@ export const globalStyles = css`
 
   body {
     background-color: var(--primary-color);
+    overflow-x: hidden;
+    margin: 0;
+  }
+
+  #root {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
   }
 `; 
