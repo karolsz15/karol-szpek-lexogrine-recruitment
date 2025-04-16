@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useAuth } from '../../context/AuthContext';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 const FormContainer = styled.div`
   background: white;
@@ -122,20 +123,20 @@ const Divider = styled.div`
   }
 `;
 
-const BottomText = styled.p`
+const SignInPrompt = styled.p`
   text-align: center;
   color: #15143966;
   font-size: 0.875rem;
   margin-top: 1.563rem;
+`;
 
-  a {
-    color: #25DAC5;
-    text-decoration: none;
-    font-weight: 500;
+const SignInLink = styled.a`
+  color: #25DAC5;
+  text-decoration: none;
+  font-weight: 500;
 
-    &:hover {
-      text-decoration: underline;
-    }
+  &:hover {
+    text-decoration: underline;
   }
 `;
 
@@ -153,7 +154,28 @@ export const SignUpForm = () => {
   const [agreed, setAgreed] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
+
+  // Simulate API call with predefined responses
+  const simulateSignUp = async (email: string, password: string) => {
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Predefined test cases
+    if (email.includes('blocked.com')) {
+      throw new Error('This email domain is blocked.');
+    }
+    if (email === 'taken@example.com') {
+      throw new Error('This email is already registered.');
+    }
+    if (password === 'common123') {
+      throw new Error('This password is too common.');
+    }
+    
+    // Success case
+    return { success: true };
+  };
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -182,12 +204,25 @@ export const SignUpForm = () => {
     return true;
   };
 
-  const handleSubmit = () => {
-    const isEmailValid = validateEmail(email);
-    const isPasswordValid = validatePassword(password);
+  const handleSubmit = async () => {
+    if (!validateEmail(email) || !validatePassword(password) || !agreed) {
+      return;
+    }
+
+    setIsLoading(true);
     
-    if (isEmailValid && isPasswordValid && agreed) {
+    try {
+      await simulateSignUp(email, password);
       login();
+      toast.success('Successfully signed up!');
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error('An unexpected error occurred. Please try again.');
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -203,6 +238,7 @@ export const SignUpForm = () => {
           setEmail(e.target.value);
           if (emailError) validateEmail(e.target.value);
         }}
+        disabled={isLoading}
       />
       {emailError && <ErrorMessage>{emailError}</ErrorMessage>}
 
@@ -214,6 +250,7 @@ export const SignUpForm = () => {
           setPassword(e.target.value);
           if (passwordError) validatePassword(e.target.value);
         }}
+        disabled={isLoading}
       />
       {passwordError && <ErrorMessage>{passwordError}</ErrorMessage>}
       
@@ -222,26 +259,27 @@ export const SignUpForm = () => {
           type="checkbox" 
           checked={agreed}
           onChange={(e) => setAgreed(e.target.checked)}
+          disabled={isLoading}
         />
         <CheckboxLabel>I agree to the Terms of Service.</CheckboxLabel>
       </CheckboxContainer>
 
       <SignInButton
-        disabled={!agreed || !email || !password}
+        disabled={!agreed || !email || !password || isLoading}
         onClick={handleSubmit}
       >
-        Sign In
+        {isLoading ? 'Signing up...' : 'Sign In'}
       </SignInButton>
 
       <Divider>or</Divider>
 
-      <TwitterButton>
+      <TwitterButton disabled={isLoading}>
         Login via Twitter
       </TwitterButton>
 
-      <BottomText>
-        Do you have an Account? <a href="#">Sign In</a>
-      </BottomText>
+      <SignInPrompt>
+        Do you have an Account? <SignInLink>Sign In</SignInLink>
+      </SignInPrompt>
     </FormContainer>
   );
 }; 
