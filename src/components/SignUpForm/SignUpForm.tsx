@@ -1,24 +1,28 @@
 import { useAuth } from '../../context/AuthContext';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, Variants, AnimatePresence } from 'framer-motion';
 import './SignUpForm.scss';
 
+interface SignUpResponse {
+  success: boolean;
+}
+
 export const SignUpForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [agreed, setAgreed] = useState(false);
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [attemptCount, setAttemptCount] = useState(0);
-  const [lastAttemptTime, setLastAttemptTime] = useState(0);
-  const [countdown, setCountdown] = useState(0);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [agreed, setAgreed] = useState<boolean>(false);
+  const [emailError, setEmailError] = useState<string>('');
+  const [passwordError, setPasswordError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [attemptCount, setAttemptCount] = useState<number>(0);
+  const [lastAttemptTime, setLastAttemptTime] = useState<number>(0);
+  const [countdown, setCountdown] = useState<number>(0);
   const { login } = useAuth();
 
-  const MAX_ATTEMPTS = 3;
-  const COOLDOWN_PERIOD = 30000;
-  const MIN_INTERVAL = 1000;
+  const MAX_ATTEMPTS: number = 3;
+  const COOLDOWN_PERIOD: number = 30000;
+  const MIN_INTERVAL: number = 1000;
 
   useEffect(() => {
     let timer: number;
@@ -34,18 +38,18 @@ export const SignUpForm = () => {
     };
   }, [countdown]);
 
-  const isRateLimited = () => {
+  const isRateLimited = (): boolean => {
     const now = Date.now();
     
     if (attemptCount >= MAX_ATTEMPTS) {
       const timeElapsed = now - lastAttemptTime;
       if (timeElapsed < COOLDOWN_PERIOD) {
         const remainingTime = Math.ceil((COOLDOWN_PERIOD - timeElapsed) / 1000);
-        setCountdown(remainingTime);  // Set the countdown
+        setCountdown(remainingTime);
         toast.error(`Too many attempts. Please wait ${remainingTime} seconds.`);
         return true;
       }
-      setCountdown(0);  // Reset countdown
+      setCountdown(0);
       setAttemptCount(0);
     }
 
@@ -57,11 +61,9 @@ export const SignUpForm = () => {
     return false;
   };
 
-  const simulateSignUp = async (email: string, password: string) => {
-    // Simulate API delay
+  const simulateSignUp = async (email: string, password: string): Promise<SignUpResponse> => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Predefined test cases
     if (email.includes('blocked.com')) {
       throw new Error('This email domain is blocked.');
     }
@@ -72,11 +74,10 @@ export const SignUpForm = () => {
       throw new Error('This password is too common.');
     }
     
-    // Success case
     return { success: true };
   };
 
-  const validateEmail = (email: string) => {
+  const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email) {
       setEmailError('Email is required');
@@ -90,7 +91,7 @@ export const SignUpForm = () => {
     return true;
   };
 
-  const validatePassword = (password: string) => {
+  const validatePassword = (password: string): boolean => {
     if (!password) {
       setPasswordError('Password is required');
       return false;
@@ -103,7 +104,7 @@ export const SignUpForm = () => {
     return true;
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (): Promise<void> => {
     if (isRateLimited()) {
       return;
     }
@@ -121,7 +122,6 @@ export const SignUpForm = () => {
       await simulateSignUp(email, password);
       login();
       toast.success('Successfully signed up!');
-      // Reset attempt count on success
       setAttemptCount(0);
     } catch (error) {
       if (error instanceof Error) {
@@ -134,7 +134,7 @@ export const SignUpForm = () => {
     }
   };
 
-  const formVariants = {
+  const formVariants: Variants = {
     hidden: { opacity: 0, x: 50 },
     visible: {
       opacity: 1,
@@ -153,7 +153,7 @@ export const SignUpForm = () => {
     }
   };
 
-  const inputVariants = {
+  const inputVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -164,7 +164,7 @@ export const SignUpForm = () => {
     }
   };
 
-  const buttonVariants = {
+  const buttonVariants: Variants = {
     hover: {
       scale: 1.02,
       transition: {

@@ -1,18 +1,23 @@
 import { useAuth } from '../../context/AuthContext';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import './Header.scss';
+
+interface NavItem {
+  name: string;
+  isActive: boolean;
+}
 
 export const Header = () => {
   const { isLoggedIn } = useAuth();
 
-  const navItems = [
+  const navItems: NavItem[] = [
     { name: 'Overview', isActive: isLoggedIn },
     { name: 'Prices', isActive: false },
     { name: 'Blog', isActive: false },
     { name: 'Feedback', isActive: false }
   ];
 
-  const headerVariants = {
+  const headerVariants: Variants = {
     hidden: { opacity: 0, y: -20 },
     visible: {
       opacity: 1,
@@ -31,7 +36,7 @@ export const Header = () => {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: -20 },
     visible: {
       opacity: 1,
@@ -42,7 +47,7 @@ export const Header = () => {
     }
   };
 
-  const logoVariants = {
+  const logoVariants: Variants = {
     hidden: { opacity: 0, x: -20 },
     visible: {
       opacity: 1,
@@ -61,7 +66,7 @@ export const Header = () => {
     }
   };
 
-  const buttonVariants = {
+  const buttonVariants: Variants = {
     hover: {
       scale: 1.05,
       backgroundColor: '#d62e6f',
@@ -76,7 +81,7 @@ export const Header = () => {
     }
   };
 
-  const linkVariants = {
+  const linkVariants: Variants = {
     hover: {
       color: 'white',
       scale: 1.05,
@@ -87,27 +92,27 @@ export const Header = () => {
   };
 
   return (
-    <motion.header 
+    <motion.header
       className="header"
       initial="hidden"
       animate="visible"
       exit="exit"
       variants={headerVariants}
     >
-      <motion.div 
+      <motion.div
         className="header__logo"
         variants={logoVariants}
         whileHover="hover"
       >
         Startup 3
       </motion.div>
-      <motion.nav 
+      <motion.nav
         className="header__nav"
         variants={itemVariants}
       >
         {navItems.map((item) => (
-          <motion.a 
-            key={item.name} 
+          <motion.a
+            key={item.name}
             href="#"
             className={`header__link ${item.isActive ? 'header__link--active' : ''}`}
             variants={linkVariants}
@@ -116,7 +121,7 @@ export const Header = () => {
             {item.name}
           </motion.a>
         ))}
-        <motion.button 
+        <motion.button
           className="header__button"
           variants={buttonVariants}
           whileHover="hover"
