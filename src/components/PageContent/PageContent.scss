@@ -1,0 +1,15 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 7.5rem;
+  background: #2F1893;
+  gap: 7.5rem;
+
+  @media (max-width: 64rem) {
+    flex-direction: column;
+    padding: 7.5rem 1.25rem 2.5rem;
+    text-align: center;
+  }
+}

@@ -1,152 +1,7 @@
-import styled from '@emotion/styled';
 import { useAuth } from '../../context/AuthContext';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-
-const FormContainer = styled.div`
-  background: white;
-  border-radius: 0.625rem;
-  padding: 3rem 2.5rem;
-  width: 100%;
-  max-width: 29.375rem;
-  box-shadow: 0 1.25rem 3.75rem rgba(49, 69, 244, 0.1);
-`;
-
-const Title = styled.h2`
-  color: #2F1893;
-  font-size: 2.625rem;
-  font-weight: 700;
-  margin-bottom: 2.188rem;
-  text-align: center;
-  letter-spacing: -0.025em;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 0.938rem 1.563rem;
-  margin-bottom: 1.25rem;
-  border: none;
-  border-radius: 6.25rem;
-  font-size: 1rem;
-  color: #1E0E62;
-  outline: none;
-  background: #F1F1F1;
-  transition: all 0.2s;
-
-  &::placeholder {
-    color: #15143966;
-  }
-
-  &:focus {
-    background: #E7E7E7;
-  }
-`;
-
-const CheckboxContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1.563rem;
-`;
-
-const Checkbox = styled.input`
-  width: 1.375rem;
-  height: 1.375rem;
-  accent-color: #25DAC5;
-  cursor: pointer;
-`;
-
-const CheckboxLabel = styled.label`
-  color: #15143966;
-  font-size: 0.875rem;
-  cursor: pointer;
-`;
-
-const Button = styled.button`
-  width: 100%;
-  padding: 0.938rem;
-  border: none;
-  border-radius: 6.25rem;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  margin-bottom: 0.938rem;
-  transition: background 0.2s;
-`;
-
-const SignInButton = styled(Button)`
-  background: #482BE7;
-  color: white;
-
-  &:hover {
-    background: #3B24BD;
-  }
-
-  &:disabled {
-    background: #8C87A6;
-    cursor: not-allowed;
-  }
-`;
-
-const TwitterButton = styled(Button)`
-  background: #1DA1F2;
-  color: white;
-
-  &:hover {
-    background: #1a91da;
-  }
-`;
-
-const Divider = styled.div`
-  text-align: center;
-  color: #15143966;
-  margin: 1.25rem 0;
-  font-size: 0.875rem;
-  position: relative;
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 45%;
-    height: 0.0625rem;
-    background: #E7E7E7;
-  }
-
-  &::before {
-    left: 0;
-  }
-
-  &::after {
-    right: 0;
-  }
-`;
-
-const SignInPrompt = styled.p`
-  text-align: center;
-  color: #15143966;
-  font-size: 0.875rem;
-  margin-top: 1.563rem;
-`;
-
-const SignInLink = styled.a`
-  color: #25DAC5;
-  text-decoration: none;
-  font-weight: 500;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const ErrorMessage = styled.span`
-  color: #E93A7D;
-  font-size: 0.875rem;
-  margin-top: -0.5rem;
-  margin-bottom: 0.5rem;
-  align-self: flex-start;
-`;
+import './SignUpForm.scss';
 
 export const SignUpForm = () => {
   const [email, setEmail] = useState('');
@@ -279,10 +134,11 @@ export const SignUpForm = () => {
   };
 
   return (
-    <FormContainer>
-      <Title>Sign Up Now</Title>
+    <div className="signup">
+      <h2 className="signup__title">Sign Up Now</h2>
       
-      <Input 
+      <input 
+        className="signup__input"
         type="email" 
         placeholder="Your email" 
         value={email}
@@ -292,9 +148,10 @@ export const SignUpForm = () => {
         }}
         disabled={isLoading}
       />
-      {emailError && <ErrorMessage>{emailError}</ErrorMessage>}
+      {emailError && <span className="signup__error">{emailError}</span>}
 
-      <Input 
+      <input 
+        className="signup__input"
         type="password" 
         placeholder="Your password" 
         value={password}
@@ -304,35 +161,40 @@ export const SignUpForm = () => {
         }}
         disabled={isLoading}
       />
-      {passwordError && <ErrorMessage>{passwordError}</ErrorMessage>}
+      {passwordError && <span className="signup__error">{passwordError}</span>}
       
-      <CheckboxContainer>
-        <Checkbox 
+      <div className="signup__checkbox-container">
+        <input 
+          className="signup__checkbox"
           type="checkbox" 
           checked={agreed}
           onChange={(e) => setAgreed(e.target.checked)}
           disabled={isLoading}
         />
-        <CheckboxLabel>I agree to the Terms of Service.</CheckboxLabel>
-      </CheckboxContainer>
+        <label className="signup__checkbox-label">I agree to the Terms of Service.</label>
+      </div>
 
-      <SignInButton
+      <button
+        className="signup__button signup__button--signin"
         disabled={!agreed || !email || !password || isLoading || countdown > 0}
         onClick={handleSubmit}
       >
         {isLoading ? 'Signing up...' : 
          countdown > 0 ? `Wait ${countdown}s` : 'Sign In'}
-      </SignInButton>
+      </button>
 
-      <Divider>or</Divider>
+      <div className="signup__divider">or</div>
 
-      <TwitterButton disabled={isLoading}>
+      <button 
+        className="signup__button signup__button--twitter"
+        disabled={isLoading}
+      >
         Login via Twitter
-      </TwitterButton>
+      </button>
 
-      <SignInPrompt>
-        Do you have an Account? <SignInLink>Sign In</SignInLink>
-      </SignInPrompt>
-    </FormContainer>
+      <p className="signup__signin-prompt">
+        Do you have an Account? <a className="signup__signin-link">Sign In</a>
+      </p>
+    </div>
   );
 }; 
