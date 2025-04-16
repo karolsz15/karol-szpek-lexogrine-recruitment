@@ -1,4 +1,5 @@
 import './PricingTable.scss';
+import { useEffect } from 'react';
 
 const plans = [
     {
@@ -32,6 +33,11 @@ const plans = [
   ];
 
 export const PricingTable = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="pricing">
       <h1 className="pricing__title">Simple & flexible pricing built for everyone</h1>
