@@ -45,7 +45,7 @@ https://karolsz15.github.io/karol-szpek-lexogrine-recruitment/
 ### Mobile Views
 ![Mobile Landing](./screenshots/mobile-landing.png)
 ![Mobile Pricing](./screenshots/mobile-pricing.png)
-![Mobile Sign Up Form](./screenshots/mobile-sign-up-form.png)
+![Mobile Sign Up Form](./screenshots/mobile-signup.png)
 
 ## Getting Started
 
