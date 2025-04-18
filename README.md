@@ -43,14 +43,6 @@ A modern, responsive landing page with authentication functionality built using 
 - ![Mobile Pricing](./screenshots/mobile-pricing.png)
 - ![Mobile Sign Up Form](./screenshots/mobile-sign-up-form.png)
 
-## Technology Stack
-
-- React 18
-- TypeScript
-- Framer Motion
-- SCSS Modules
-- Jest & React Testing Library
-- React Hot Toast
 
 ## Getting Started
 
