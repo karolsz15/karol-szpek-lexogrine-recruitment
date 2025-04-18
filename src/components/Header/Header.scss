@@ -19,6 +19,9 @@
 
   @media (max-width: 40rem) {
     padding: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
   }
 
   @media (max-width: 40rem) and (orientation: landscape) {
@@ -32,19 +35,23 @@
     gap: 1rem;
   }
 
+  &__inner {
+    width: 100%;
+    max-width: 90rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   &__logo {
     color: white;
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: -0.03em;
-    margin-left: 0;
-    padding-left: 0.5rem;
     position: relative;
-    left: -0.5rem;
 
     @media (max-width: 40rem) {
-      font-size: 1.25rem;
-      margin-left: -0.25rem;
+      display: none;
     }
   }
 
@@ -53,6 +60,13 @@
     flex-direction: row;
     align-items: center;
     gap: 2.5rem;
+
+    @media (max-width: 40rem) {
+      gap: 1rem;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
 
     @media (max-width: 40rem) and (orientation: landscape) {
       gap: 1.25rem;

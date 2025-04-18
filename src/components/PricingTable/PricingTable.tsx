@@ -5,7 +5,10 @@ import { motion, Variants } from 'framer-motion';
 interface Plan {
   name: string;
   price: number;
-  features: string[];
+  features: {
+    name: string;
+    included: boolean;
+  }[];
   isHighlighted?: boolean;
 }
 
@@ -14,17 +17,20 @@ const plans: Plan[] = [
     name: 'START',
     price: 19,
     features: [
-      '2 GB of hosting space',
-      '14 days of free backups'
+      { name: '2 GB of hosting space', included: true },
+      { name: '14 days of free backups', included: true },
+      { name: 'Social integrations', included: false },
+      { name: 'Advanced client billing', included: false }
     ]
   },
   {
     name: 'ENTERPRISE',
     price: 49,
     features: [
-      '2 GB of hosting space',
-      '14 days of free backups',
-      'Social integrations'
+      { name: '2 GB of hosting space', included: true },
+      { name: '14 days of free backups', included: true },
+      { name: 'Social integrations', included: true },
+      { name: 'Advanced client billing', included: false }
     ],
     isHighlighted: true
   },
@@ -32,10 +38,10 @@ const plans: Plan[] = [
     name: 'ENTERPRISE',
     price: 99,
     features: [
-      '2 GB of hosting space',
-      '14 days of free backups',
-      'Social integrations',
-      'Advanced client billing'
+      { name: '2 GB of hosting space', included: true },
+      { name: '14 days of free backups', included: true },
+      { name: 'Social integrations', included: true },
+      { name: 'Advanced client billing', included: true }
     ]
   }
 ];
@@ -116,45 +122,48 @@ export const PricingTable = () => {
       <div className="pricing__cards">
         {plans.map((plan, index) => (
           <motion.div 
-            key={index} 
-            className={`pricing__card ${plan.isHighlighted ? 'pricing__card--highlighted' : ''}`}
+            key={index}
             variants={cardVariants}
             whileHover="hover"
             initial="hidden"
             animate="visible"
             layout
           >
-            <h3 className="pricing__plan-name">{plan.name}</h3>
-            <div className="pricing__price-container">
-              <span className="pricing__price-prefix">$</span>
-              <span className="pricing__price-amount">{plan.price}</span>
-              <span className="pricing__price-suffix"> per user</span>
+            <div className={`pricing__card ${plan.isHighlighted ? 'pricing__card--highlighted' : ''}`}>
+              <h3 className="pricing__plan-name">{plan.name}</h3>
+              <div className="pricing__price-container">
+                <span className="pricing__price-prefix">$</span>
+                <span className="pricing__price-amount">{plan.price}</span>
+                <div className="pricing__price-details">per user per month</div>
+              </div>
+              <p className="pricing__description">
+                All the features you need to keep your personal files safe, accessible, and easy to share.
+              </p>
             </div>
-            <div className="pricing__price-subtext">per month</div>
-            <p className="pricing__description">
-              All the features you need to keep your personal files safe, accessible, and easy to share.
-            </p>
-            <ul className="pricing__features">
-              {plan.features.map((feature, i) => (
-                <motion.li 
-                  key={i} 
-                  className={`pricing__feature ${plan.isHighlighted ? 'pricing__feature--highlighted' : ''}`}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                >
-                  {feature}
-                </motion.li>
-              ))}
-            </ul>
-            <motion.button 
-              className={`pricing__button ${plan.isHighlighted ? 'pricing__button--highlighted' : ''}`}
-              variants={buttonVariants}
-              whileHover="hover"
-              whileTap="tap"
-            >
-              Start Free Trial
-            </motion.button>
+            
+            <div className="pricing__features-container">
+              <ul className="pricing__features">
+                {plan.features.map((feature, i) => (
+                  <motion.li 
+                    key={i} 
+                    className={`pricing__feature ${!feature.included ? 'pricing__feature--disabled' : ''}`}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                  >
+                    {feature.name}
+                  </motion.li>
+                ))}
+              </ul>
+              <motion.button 
+                className={`pricing__button ${plan.isHighlighted ? 'pricing__button--highlighted' : ''}`}
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap="tap"
+              >
+                Start Free Trial
+              </motion.button>
+            </div>
           </motion.div>
         ))}
       </div>

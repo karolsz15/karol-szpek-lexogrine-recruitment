@@ -99,37 +99,39 @@ export const Header = () => {
       exit="exit"
       variants={headerVariants}
     >
-      <motion.div
-        className="header__logo"
-        variants={logoVariants}
-        whileHover="hover"
-      >
-        Startup 3
-      </motion.div>
-      <motion.nav
-        className="header__nav"
-        variants={itemVariants}
-      >
-        {navItems.map((item) => (
-          <motion.a
-            key={item.name}
-            href="#"
-            className={`header__link ${item.isActive ? 'header__link--active' : ''}`}
-            variants={linkVariants}
-            whileHover="hover"
-          >
-            {item.name}
-          </motion.a>
-        ))}
-        <motion.button
-          className="header__button"
-          variants={buttonVariants}
+      <div className="header__inner">
+        <motion.div
+          className="header__logo"
+          variants={logoVariants}
           whileHover="hover"
-          whileTap="tap"
         >
-          Purchase
-        </motion.button>
-      </motion.nav>
+          Startup 3
+        </motion.div>
+        <motion.nav
+          className="header__nav"
+          variants={itemVariants}
+        >
+          {navItems.map((item) => (
+            <motion.a
+              key={item.name}
+              href="#"
+              className={`header__link ${item.isActive ? 'header__link--active' : ''}`}
+              variants={linkVariants}
+              whileHover="hover"
+            >
+              {item.name}
+            </motion.a>
+          ))}
+          <motion.button
+            className="header__button"
+            variants={buttonVariants}
+            whileHover="hover"
+            whileTap="tap"
+          >
+            Purchase
+          </motion.button>
+        </motion.nav>
+      </div>
     </motion.header>
   );
 }; 
