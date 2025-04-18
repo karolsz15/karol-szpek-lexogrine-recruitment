@@ -6,7 +6,7 @@ A modern, responsive landing page with authentication functionality built using 
 
 ## Live Demo - Deployed on GitHub Pages
 
-![Live Demo](https://karolsz15.github.io/karol-szpek-lexogrine-recruitment/)
+https://karolsz15.github.io/karol-szpek-lexogrine-recruitment/
 
 ## Features
 
