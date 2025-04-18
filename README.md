@@ -1,8 +1,12 @@
-# Startup 3 Landing Page
+# Karol Szpek Lexogrine Recruitment Task - Startup 3 Landing Page & Pricing Table
 
 A modern, responsive landing page with authentication functionality built using React, TypeScript, and Framer Motion.
 
 ![Landing Page](./screenshots/landing-page.png)
+
+## Live Demo - Deployed on GitHub Pages
+
+![Live Demo](https://karolsz15.github.io/karol-szpek-lexogrine-recruitment/)
 
 ## Features
 
