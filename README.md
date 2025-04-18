@@ -26,21 +26,21 @@ A modern, responsive landing page with authentication functionality built using 
 ## Screenshots
 
 ### Desktop Views
-- [Landing Page](./screenshots/landing-page.png)
-- [Pricing Table](./screenshots/pricing-table.png)
-- [Invalid Email](./screenshots/form-validation1.png)
-- [Invalid Password](./screenshots/form-validation2.png)
+- ![Landing Page](./screenshots/landing-page.png)
+- ![Pricing Table](./screenshots/pricing-table.png)
+- ![Invalid Email](./screenshots/form-validation1.png)
+- ![Invalid Password](./screenshots/form-validation2.png)
 
 ### Error Handling & Rate Limiting
-- [Domain Blocked](./screenshots/email-domain-blocked.png)
-- [Email Already Taken](./screenshots/email-already-registered.png)
-- [Common Password](./screenshots/password-too-common.png)
-- [Rate Limit Cooldown](./screenshots/rate-limit-cooldown.png)
+- ![Domain Blocked](./screenshots/email-domain-blocked.png)
+- ![Email Already Taken](./screenshots/email-already-registered.png)
+- ![Common Password](./screenshots/password-too-common.png)
+- ![Rate Limit Cooldown](./screenshots/rate-limit-cooldown.png)
 
 ### Mobile Views
-- [Mobile Landing](./screenshots/mobile-landing.png)
-- [Mobile Pricing](./screenshots/mobile-pricing.png)
-- [Mobile Sign Up Form](./screenshots/mobile-sign-up-form.png)
+- ![Mobile Landing](./screenshots/mobile-landing.png)
+- ![Mobile Pricing](./screenshots/mobile-pricing.png)
+- ![Mobile Sign Up Form](./screenshots/mobile-sign-up-form.png)
 
 ## Getting Started
 
