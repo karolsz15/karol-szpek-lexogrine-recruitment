@@ -46,20 +46,3 @@ https://karolsz15.github.io/karol-szpek-lexogrine-recruitment/
 ![Mobile Landing](./screenshots/mobile-landing.png)
 ![Mobile Pricing](./screenshots/mobile-pricing.png)
 ![Mobile Sign Up Form](./screenshots/mobile-signup.png)
-
-## Getting Started
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/startup-3-landing.git
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Run the development server:
-```bash
-npm run dev
-```
