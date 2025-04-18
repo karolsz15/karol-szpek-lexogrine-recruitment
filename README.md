@@ -1,54 +1,70 @@
-# React + TypeScript + Vite
+# Startup 3 Landing Page
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive landing page with authentication functionality built using React, TypeScript, and Framer Motion.
 
-Currently, two official plugins are available:
+![Landing Page](./screenshots/landing-page.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+### Authentication
+- Email and password validation
+- Rate limiting for login attempts
+- Error handling and user feedback
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 💰 Pricing Plans
+- Three-tier pricing structure
+- Feature comparison
+- Highlighted recommended plan
+- Interactive cards with hover effects
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### 🎭 Animations
+- Page transitions using Framer Motion
+- Staggered animations for list items
+- Hover and tap animations for buttons
+- Smooth error message transitions
+
+## Screenshots
+
+### Desktop Views
+- [Landing Page](./screenshots/landing-page.png)
+- [Pricing Table](./screenshots/pricing-table.png)
+- [Invalid Email](./screenshots/form-validation1.png)
+- [Invalid Password](./screenshots/form-validation2.png)
+
+### Error Handling & Rate Limiting
+- [Domain Blocked](./screenshots/email-domain-blocked.png)
+- [Email Already Taken](./screenshots/email-already-registered.png)
+- [Common Password](./screenshots/password-too-common.png)
+- [Rate Limit Warning](./screenshots/rate-limit-warning.png)
+- [Rate Limit Cooldown](./screenshots/rate-limit-cooldown.png)
+
+### Mobile Views
+- [Mobile Landing](./screenshots/mobile-landing.png)
+- [Mobile Pricing](./screenshots/mobile-pricing.png)
+- [Mobile Sign Up Form](./screenshots/mobile-sign-up-form.png)
+
+## Technology Stack
+
+- React 18
+- TypeScript
+- Framer Motion
+- SCSS Modules
+- Jest & React Testing Library
+- React Hot Toast
+
+## Getting Started
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/startup-3-landing.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Install dependencies:
+```bash
+npm install
+```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+3. Run the development server:
+```bash
+npm run dev
 ```
